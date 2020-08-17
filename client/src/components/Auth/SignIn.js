@@ -6,7 +6,6 @@ const SignIn = ({ login }) => {
   const submitHandler = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    console.log(email, password);
     login({ email, password });
   };
   return (
