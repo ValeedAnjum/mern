@@ -1,6 +1,12 @@
 import React, { Fragment } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import { Form } from "semantic-ui-react";
-const Register = () => {
+const Register = (props) => {
+  const { auth } = props;
+  if (auth) {
+    return <Redirect to="/posts" />;
+  }
   const submitHandler = () => {
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
@@ -24,4 +30,10 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapState = (state) => {
+  return {
+    auth: state.auth.auth,
+  };
+};
+
+export default connect(mapState, null)(Register);

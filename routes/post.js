@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
+const auth = require("../middleware/auth");
 const Post = require("../models/post");
 router.post(
   "/",
@@ -28,4 +29,10 @@ router.post(
   }
 );
 
+router.get("/:number", auth, async (req, res) => {
+  const posts = await Post.find()
+    .sort({ date: -1 })
+    .limit(Number(req.params.number));
+  res.json(posts);
+});
 module.exports = router;

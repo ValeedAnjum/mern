@@ -1,8 +1,13 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Form } from "semantic-ui-react";
-import { LogIn } from "../../store/actions/auth";
-const SignIn = ({ login }) => {
+import { Redirect } from "react-router-dom";
+import { logIn } from "../../store/actions/AuthAction";
+const SignIn = (props) => {
+  const { login, auth } = props;
+  if (auth) {
+    return <Redirect to="/posts" />;
+  }
   const submitHandler = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -24,12 +29,14 @@ const SignIn = ({ login }) => {
 };
 
 const mapState = (state) => {
-  return {};
+  return {
+    auth: state.auth.auth,
+  };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    login: (cred) => dispatch(LogIn(cred)),
+    login: (cred) => dispatch(logIn(cred)),
   };
 };
 
