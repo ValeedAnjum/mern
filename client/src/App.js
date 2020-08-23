@@ -9,6 +9,7 @@ import Register from "./components/Auth/Register";
 import store from "./store";
 import Posts from "./components/Posts/Posts";
 import { loadUser } from "./store/actions/AuthAction";
+import Users from "./components/Users/Users";
 function App() {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -18,9 +19,10 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <Route path="/posts" component={Posts} />
-          <Route path="/login" component={SignIn} />
           <Route path="/register" component={Register} />
+          <Route path="/login" component={SignIn} />
+          <Route path="/posts" component={Posts} />
+          <Route path="/users" component={Users} />
         </Switch>
       </BrowserRouter>
     </Provider>

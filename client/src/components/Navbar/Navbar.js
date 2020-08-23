@@ -14,6 +14,9 @@ const Navbar = (props) => {
         <NavLink to="/posts">Posts</NavLink>
       </Menu.Item>
       <Menu.Item name="reviews">
+        <NavLink to="/users">Users</NavLink>
+      </Menu.Item>
+      <Menu.Item name="reviews">
         <NavLink to="/posts" onClick={demy}>
           Logout
         </NavLink>

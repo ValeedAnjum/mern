@@ -6,8 +6,11 @@ const Post = require("../models/post");
 router.post(
   "/",
   [
-    check("title", "Title is required").not().isEmpty(),
-    check("des", "Description is required").not().isEmpty(),
+    auth,
+    [
+      check("title", "Title is required").not().isEmpty(),
+      check("des", "Description is required").not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -28,7 +31,16 @@ router.post(
     }
   }
 );
-
+// @route    get /:number
+// @desc     get n number posts
+// @access   Private
+router.get("/", auth, async (req, res) => {
+  const posts = await Post.find().sort({ date: -1 });
+  res.json(posts);
+});
+// @route    get /:number
+// @desc     get n number posts
+// @access   Private
 router.get("/:number", auth, async (req, res) => {
   const posts = await Post.find()
     .sort({ date: -1 })

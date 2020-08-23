@@ -123,4 +123,19 @@ router.get("/user", auth, async (req, res) => {
   }
 });
 
+// @route    get alluser
+// @desc     get user data
+// @access   Private
+router.get("/allusers", auth, async (req, res) => {
+  try {
+    const user = await User.find().sort({ date: -1 });
+    if (!user) {
+      res.status(400).json({ error: [{ msg: "Users deos not exists" }] });
+    }
+    res.json(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 module.exports = router;

@@ -10,8 +10,7 @@ const Posts = (props) => {
   const [posts, setposts] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("/post/2");
-      console.log(res.data);
+      const res = await axios.get("/post");
       setposts(res.data);
     };
     fetchPosts();

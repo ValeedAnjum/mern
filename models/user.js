@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  online: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = User = mongoose.model("tuser", userSchema);
