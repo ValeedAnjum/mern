@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const auth = require("../middleware/auth");
 const User = require("../models/user");
 
@@ -137,5 +138,32 @@ router.get("/allusers", auth, async (req, res) => {
     console.log(error.message);
     res.status(500).send("Server Error");
   }
+});
+
+router.get("/sendemail", (req, res) => {
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: config.get("email"),
+      pass: config.get("pass"),
+    },
+  });
+
+  var mailOptions = {
+    from: "noreplay@gmail.com",
+    to: "valeedanjumsiddiqui@gmail.com",
+    subject: "Sending Email using Node.js",
+    text: "no was easy!",
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+      res.send(error);
+    } else {
+      console.log("Email sent: " + info.response);
+      res.send("Email send");
+    }
+  });
 });
 module.exports = router;
