@@ -153,7 +153,7 @@ router.get("/sendemail", (req, res) => {
     from: "noreplay@gmail.com",
     to: "valeedanjumsiddiqui@gmail.com",
     subject: "Sending Email using Node.js",
-    text: "no was easy!",
+    html: "<h1>no was easy!</h1>",
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
