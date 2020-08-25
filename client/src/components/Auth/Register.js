@@ -2,8 +2,9 @@ import React, { Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Form } from "semantic-ui-react";
+import { signUp } from "../../store/actions/AuthAction";
 const Register = (props) => {
-  const { auth } = props;
+  const { auth, signup } = props;
   if (auth) {
     return <Redirect to="/posts" />;
   }
@@ -11,7 +12,7 @@ const Register = (props) => {
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    console.log(name, email, password);
+    signup({ name, email, password });
   };
   return (
     <Fragment>
@@ -36,4 +37,10 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState, null)(Register);
+const mapDispatch = (dispatch) => {
+  return {
+    signup: (cred) => dispatch(signUp(cred)),
+  };
+};
+
+export default connect(mapState, mapDispatch)(Register);

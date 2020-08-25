@@ -14,7 +14,7 @@ const Users = () => {
   return (
     <Fragment>
       {users.map((user) => {
-        return <User user={user} />;
+        return <User key={user._id} user={user} />;
       })}
     </Fragment>
   );

@@ -8,7 +8,7 @@ const User = ({ user }) => {
   // console.log(currentDate);
   // const dif = currentDate - postDate;
   // const difInMin = Math.round(dif / 1000);
-  console.log(Date.parse(online));
+  // console.log(Date.parse(online));
   return (
     <div
       style={{
