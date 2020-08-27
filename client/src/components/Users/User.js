@@ -1,9 +1,9 @@
 import React from "react";
 import moment from "moment";
 const User = ({ user }) => {
-  const { name, email, online } = user;
-  const postDate = Date.parse(online);
-  const currentDate = new Date().getTime();
+  const { name, email, online, isVarified } = user;
+  // const postDate = Date.parse(online);
+  // const currentDate = new Date().getTime();
   // console.log(postDate);
   // console.log(currentDate);
   // const dif = currentDate - postDate;
@@ -20,6 +20,7 @@ const User = ({ user }) => {
       <p>{name}</p>
       <p>{email}</p>
       <p>{online}</p>
+      <p>{isVarified ? "true" : "false"}</p>
     </div>
   );
 };

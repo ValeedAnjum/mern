@@ -10,6 +10,7 @@ import store from "./store";
 import Posts from "./components/Posts/Posts";
 import { loadUser } from "./store/actions/AuthAction";
 import Users from "./components/Users/Users";
+import Verification from "./components/Verification/Verification";
 function App() {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" component={SignIn} />
           <Route path="/posts" component={Posts} />
           <Route path="/users" component={Users} />
+          <Route path="/verification/:token" component={Verification} />
         </Switch>
       </BrowserRouter>
     </Provider>

@@ -5,8 +5,12 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const { sendEmailToUser } = require("./util/sendEmailToUser");
 const auth = require("../middleware/auth");
 const User = require("../models/user");
+const Token = require("../models/token");
+const { json } = require("express");
 
 // @route    POST user
 // @desc     Register user
@@ -35,14 +39,23 @@ router.post(
           .json({ errors: [{ msg: "User already exists" }] });
       }
       user = new User({ name, email, password });
+
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
       await user.save();
+      const token = new Token({
+        _userId: user._id,
+        token: crypto.randomBytes(16).toString("hex"),
+      });
+      await token.save();
+      sendEmailToUser(res);
+
       const payload = {
         user: {
           id: user.id,
         },
       };
+
       jwt.sign(
         payload,
         config.get("jwtSecret"),
@@ -168,6 +181,22 @@ router.get("/sendemail", (req, res) => {
       res.send("Email send");
     }
   });
+});
+
+// @route    post verification:token
+// @desc     send email to user
+// @access   Private
+router.post("/verification/:usertoken", async (req, res) => {
+  const { usertoken } = req.params;
+  // const token = await Token.findOneAndDelete({ token: usertoken });
+  const token = await Token.findOne({ token: usertoken });
+  if (!token) {
+    return res.status(400).json({ errors: [{ msg: "Token is not valid" }] });
+  }
+  const user = await User.findById(token._userId);
+  user.isVarified = true;
+  await user.save();
+  res.json(user);
 });
 
 module.exports = router;

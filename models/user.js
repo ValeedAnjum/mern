@@ -13,6 +13,16 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  isVarified: {
+    type: Boolean,
+    default: false,
+  },
+  passwordResetToken: {
+    type: String,
+  },
+  passwordResetExpires: {
+    type: Date,
+  },
 });
 
 module.exports = User = mongoose.model("tuser", userSchema);
