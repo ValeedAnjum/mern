@@ -48,7 +48,7 @@ router.post(
         token: crypto.randomBytes(16).toString("hex"),
       });
       await token.save();
-      sendEmailToUser(res);
+      sendEmailToUser(res, token.token);
 
       const payload = {
         user: {

@@ -21,6 +21,9 @@ const Navbar = (props) => {
           Logout
         </NavLink>
       </Menu.Item>
+      <Menu.Item name="reviews">
+        {profile && profile.isVarified ? "Verifeid" : "Not Verified"}
+      </Menu.Item>
       <Menu.Menu position="right">
         <Menu.Item name="reviews">
           {profile ? profile.email : "Loading"}
